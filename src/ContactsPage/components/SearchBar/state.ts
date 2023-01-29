@@ -24,6 +24,6 @@ export class SearchBarState {
     this.filterTimeout = setTimeout(() => {
       this.loading = false;
       this.filterContacts(input);
-    }, 200);
+    }, 20);
   }
 }
