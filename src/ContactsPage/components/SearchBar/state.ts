@@ -3,13 +3,11 @@ import { ContactsPageState } from "../../state";
 
 export class SearchBarState {
   input = "";
-  loading = false;
   filterContacts;
   filterTimeout: ReturnType<typeof setTimeout> | undefined;
 
   constructor(pageState: ContactsPageState) {
     makeObservable(this, {
-      loading: observable,
       input: observable,
       filterTimeout: observable,
       setInput: action.bound,
@@ -19,11 +17,7 @@ export class SearchBarState {
 
   setInput(input: string) {
     this.input = input;
-    this.loading = true;
     clearTimeout(this.filterTimeout);
-    this.filterTimeout = setTimeout(() => {
-      this.loading = false;
-      this.filterContacts(input);
-    }, 20);
+    this.filterContacts(input);
   }
 }

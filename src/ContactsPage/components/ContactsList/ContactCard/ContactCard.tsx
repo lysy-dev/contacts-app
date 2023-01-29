@@ -10,7 +10,7 @@ import Checkbox from '@mui/material/Checkbox';
 
 const _ContactCard = ({ state }: { state: ContactState }) => {
   const isChecked = state.isChecked;
-  const style = {backgroundColor: "#507AF8"};
+  const style = {backgroundColor: "#937342"};
   return (
     <ListItem style={style}>
       <ListItemButton

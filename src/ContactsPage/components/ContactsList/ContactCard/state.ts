@@ -21,6 +21,7 @@ export class ContactState {
     this.avatar = contact.avatar;
   }
   setChecked(isChecked: boolean) {
+    console.log("toggling ",this.first_name)
     this.isChecked = isChecked;
   }
 }

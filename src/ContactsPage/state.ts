@@ -17,6 +17,7 @@ export class ContactsPageState {
       setContacts: action.bound,
       filterContacts: action.bound,
     });
+    console.log("creating state, and fetching contacts");
     this.fetchContacts();
     this.searchBarState = new SearchBarState(this);
   }
@@ -37,14 +38,16 @@ export class ContactsPageState {
     this.contactCardsState = contactsStates;
     this.filteredCardsState = contactsStates;
     this.setContacts(contacts);
+    console.log("contacts fetched")
   }
 
   filterContacts(filterInput: string) {
+    console.log("filtering contacts, input: ", filterInput);
     const lowerCaseInput = filterInput.toLowerCase();
-      this.filteredCardsState = this.contactCardsState.filter(
-        (contact:ContactState) =>
-          contact.last_name.toLowerCase().includes(lowerCaseInput) ||
-          contact.first_name.toLowerCase().includes(lowerCaseInput)
-      );
+    this.filteredCardsState = this.contactCardsState.filter(
+      (contact: ContactState) =>
+        contact.last_name.toLowerCase().includes(lowerCaseInput) ||
+        contact.first_name.toLowerCase().includes(lowerCaseInput)
+    );
   }
 }
