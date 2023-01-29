@@ -4,36 +4,23 @@ import { ContactCard } from "./components/ContactCard/ContactCard";
 import HourglassTopOutlinedIcon from '@mui/icons-material/HourglassTopOutlined';
 import Divider from '@mui/material/Divider';
 import { SearchBar } from "./components/SearchBar/SearchBar";
-import { ContactsPageState } from "./state";
+import { useFetcher, useSearchBarState } from "./hooks";
+import { memo } from "react";
+import { ContactsListComponent } from "./components/ContactsList/ContactsList";
 
-const cachedState: { [key: string]: ContactsPageState | undefined } = {};
 
-const getCachedState = (key: string): ContactsPageState => {
-  const oldState = cachedState[key];
-  if (oldState) return oldState;
-  const state = new ContactsPageState();
-  cachedState[key] = state;
-  return state;
-};
-
-const _ContactsPage = () => {
-  const contactsPageState = getCachedState("contacts");
-  const { contacts, searchBarState, filteredCardsState } = contactsPageState;
-  if (contacts === undefined) return <div><HourglassTopOutlinedIcon/></div>;
+const _ContactsPage = memo(() => {
+  
+  const { loading, contacts  } = useFetcher();
+  const { searchInput,setSearchInput,filteredContactList  } = useSearchBarState(contacts)
+  if (loading) return <div><HourglassTopOutlinedIcon/></div>;
+  console.log(filteredContactList)
   return (
-    <div style={{}}>
-      <SearchBar state={searchBarState} />
-      <List>
-        {filteredCardsState.map((cardState,i) => {
-          return <>
-          <ContactCard state={cardState} />
-          {i<filteredCardsState.length && 
-      <Divider variant="inset" component="li" />}
-          </>
-        })}
-      </List>
+    <div>
+      <SearchBar searchInput={searchInput} setSearchInput={setSearchInput}/>
+      <ContactsListComponent filteredContactList={filteredContactList} />
     </div>
   );
-};
+});
 
-export const ContactsPage = observer(_ContactsPage);
+export const ContactsPage = _ContactsPage;
