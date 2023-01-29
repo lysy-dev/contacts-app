@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from "mobx";
-import { Contact } from "../../types";
+import { Contact } from "../../../types";
 
 export class ContactState {
   id: number;

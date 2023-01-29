@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import List from "@mui/material/List";
-import { ContactCard } from "./components/ContactCard/ContactCard";
+import { ContactCard } from "./components/ContactsList/ContactCard/ContactCard";
 import HourglassTopOutlinedIcon from "@mui/icons-material/HourglassTopOutlined";
 import Divider from "@mui/material/Divider";
 import { SearchBar } from "./components/SearchBar/SearchBar";

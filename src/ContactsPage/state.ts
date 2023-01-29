@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from "mobx";
-import { ContactState } from "./components/ContactCard/state";
+import { ContactState } from "./components/ContactsList/ContactCard/state";
 import { SearchBarState } from "./components/SearchBar/state";
 import { Contact, ContactsList } from "./types";
 import { getContacts } from "./utils";

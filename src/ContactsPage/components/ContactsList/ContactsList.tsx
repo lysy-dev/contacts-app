@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { useLayoutEffect, useRef, useState } from "react";
 import { FixedSizeList } from "react-window";
 import { ContactsPageState } from "../../state";
-import { ContactCard } from "../ContactCard/ContactCard";
+import { ContactCard } from "./ContactCard/ContactCard";
 import { SearchBar } from "../SearchBar/SearchBar";
 
 const _ContactsList = ({contactsPageState}:{contactsPageState:ContactsPageState})=>{
@@ -20,7 +20,7 @@ const _ContactsList = ({contactsPageState}:{contactsPageState:ContactsPageState}
       }
     }, [ref]);
     return (
-      <div style={{width:"100vw",height:"90vh"}}ref={ref}>
+      <div style={{width:"100vw",height:"80vh"}}ref={ref}>
         <List>
           <FixedSizeList
             itemData={filteredCardsState}
