@@ -26,15 +26,13 @@ const _ContactsList = ({contactsPageState}:{contactsPageState:ContactsPageState}
             itemData={filteredCardsState}
             height={listSize.height}
             itemCount={filteredCardsState.length}
-            itemSize={60}
+            itemSize={70}
             width={listSize.width}
           >
             {({ data, index, style }) => (
               <div style={style}>
                 <ContactCard state={data[index]} />
-                {index < filteredCardsState.length && (
-                  <Divider variant="inset" component="li" />
-                )}
+                
               </div>
             )}
           </FixedSizeList>

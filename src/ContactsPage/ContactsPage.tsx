@@ -22,20 +22,19 @@ const getCachedState = (key: string): ContactsPageState => {
 const _ContactsPage = () => {
   const contactsPageState = getCachedState("contacts");
   const { contacts, searchBarState } = contactsPageState;
- 
+
   if (contacts === undefined)
     return (
       <div>
         <HourglassTopOutlinedIcon />
       </div>
     );
-  return (<>
-  <SearchBar state={searchBarState} />
-    <ContactsList contactsPageState={contactsPageState}/>
-  </>
+  return (
+    <>
+      <SearchBar state={searchBarState} />
+      <ContactsList contactsPageState={contactsPageState} />
+    </>
   );
 };
-
-
 
 export const ContactsPage = observer(_ContactsPage);
