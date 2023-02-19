@@ -1,7 +1,7 @@
 import koa from "koa";
 import { enableMethods } from "./router/index.js";
 import { DB } from "./db/index.js";
-import { handleRoutes } from "./router/routeHandlers/index.js";
+import { handleRoutes } from "./router/index.js";
 
 
 const app = new koa();
