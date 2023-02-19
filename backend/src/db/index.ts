@@ -28,7 +28,10 @@ export class DB {
       acc[key] = {
         items:{},
         get: (id:dbIndex)=> this.storage[key].items[id] ,
-        set: (id:dbIndex,val:Omit<Schema[objectKey],"id">) => this.storage[key].items[id] = {id, ...val} as Schema[objectKey],
+        set: (val:Omit<Schema[objectKey],"id">) => {
+          const id = this.storage[key].getLastId();
+          this.storage[key].items[id] = {...val,id} as Schema[objectKey]},
+        getLastId: () => Object.keys(this.storage[key].items).length,
       };
       return acc;
     }, {} as StorageBuilder);

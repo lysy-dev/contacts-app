@@ -31,7 +31,7 @@ const setUser: RouteProp = {
     if(!userHasAllKeys){
         return ctx.throw(400, "Bad user object");
     }
-    ctx.db.Contact.set(user.id, user);
+    ctx.db.Contact.set(user);
     ctx.body = true;
     return next();
   },
