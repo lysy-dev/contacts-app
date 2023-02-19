@@ -1,11 +1,9 @@
-import { observer } from "mobx-react-lite";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemButton from "@mui/material/ListItemButton";
 import Avatar from "@mui/material/Avatar";
-import { Contact } from "../../types";
-import { memo } from "react";
+import { Contact } from "../../../types";
 
 
 const _ContactCard = ({ contact }: { contact: Contact }) => {

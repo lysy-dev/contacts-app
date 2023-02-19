@@ -2,7 +2,7 @@ import { Divider, List } from "@mui/material";
 import { FixedSizeList } from "react-window";
 import { memo } from "react";
 import { ContactsList } from "../../types";
-import { ContactCard } from "../ContactCard/ContactCard";
+import { ContactCard } from "./ContactCard/ContactCard";
 
 export const ContactsListComponent = memo(
   ({ filteredContactList }: { filteredContactList: ContactsList }) => {
