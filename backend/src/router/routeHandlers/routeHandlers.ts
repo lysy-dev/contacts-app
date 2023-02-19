@@ -1,4 +1,4 @@
-import { userRoutes } from "./User/index.js";
+import { userRoutes } from "./User/user.js";
 
 const allRoutes = [...userRoutes];
 

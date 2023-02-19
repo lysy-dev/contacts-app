@@ -1,5 +1,5 @@
 import { Context, Next } from "koa";
-import { routeHandlersObject } from "./routeHandlers/index.js";
+import { routeHandlersObject } from "./routeHandlers/routeHandlers.js";
 
 export const handleRoutes = (ctx: Context, next: Next) => {
   const { method, path } = ctx.request;

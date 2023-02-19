@@ -2,7 +2,7 @@ import koa from "koa";
 import bodyparser from "koa-bodyparser";
 import cors from "@koa/cors";
 import { DB } from "./db/index.js";
-import { handleRoutes } from "./router/index.js";
+import { handleRoutes } from "./router/router.js";
 
 const addMiddleware = (app: koa) => {
   app.use(bodyparser());

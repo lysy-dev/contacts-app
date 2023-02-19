@@ -16,6 +16,22 @@ const getUser: RouteProp = {
   },
 };
 
+const getUsers: RouteProp = {
+  method: "GET",
+  path: "/users",
+  handler: (ctx: Context, next: Next) => {
+    const id = ctx.request.query["id"];
+    const length = ctx.request.query["length"];
+    const users =  ctx.db.Contact.getMany(length, id);
+    console.log(users);
+    if(!users) {
+        return ctx.throw(404, `User with id ${id} not found`);
+    }
+    ctx.body = users
+    return next();
+  },
+};
+
 const setUser: RouteProp = {
   method: "PUT",
   path: "/user",
@@ -37,4 +53,4 @@ const setUser: RouteProp = {
   },
 };
 
-export const userRoutes = [getUser,setUser];
+export const userRoutes = [getUser,setUser,getUsers];

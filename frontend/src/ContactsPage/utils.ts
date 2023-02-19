@@ -1,13 +1,14 @@
 import { Contact, ContactsList } from "./types";
 
-const contactsUrl = "http://localhost:3005/user";
+const contactsUrl = "http://localhost:3005/users";
+const updateContactsUrl = "http://localhost:3005/user";
 
 export const getContacts = async () => {
   // return [] as ContactsList;
-  const contactResponse = await fetch(contactsUrl + "?id=1");
+  const contactResponse = await fetch(contactsUrl + "?length=10");
   const contactJson = await contactResponse.json();
-  console.log(contactJson);
-  return [contactJson] as ContactsList;
+  
+  return contactJson as ContactsList;
 };
 
 export const filterContacts = (
@@ -36,7 +37,7 @@ export const fetchContacts = async (): Promise<{ contacts: ContactsList }> => {
 };
 
 export const uploadContact = async (newContact: Contact) => {
-  return await fetch(contactsUrl, {
+  return await fetch(updateContactsUrl, {
     method: "PUT",
     body: JSON.stringify(newContact),
     headers: {
