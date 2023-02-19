@@ -6,8 +6,8 @@ export interface Contact extends DBObjectType {
   first_name: string;
   last_name: string;
   email: string;
-  gender: string;
-  avatar: string;
+  gender?: string;
+  avatar?: string;
 }
 
 export interface Product extends DBObjectType {
@@ -15,10 +15,11 @@ export interface Product extends DBObjectType {
   price: string;
 }
 
+
 export type AvailableMethods = "get" | "set";
 
 export class SchemaObject {
-  Contact: Partial<Contact> = {};
-  Product: Partial<Product> = {};
+  Contact: Contact | null  = null;
+  Product: Product | null = null;
 }
 

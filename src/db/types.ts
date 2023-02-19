@@ -1,7 +1,7 @@
 import { AvailableMethods, DBObjectType, SchemaObject } from "./schema";
 
 export type Schema = {
-  [key in keyof SchemaObject]: Required<SchemaObject[key]>;
+  [key in keyof SchemaObject]: NonNullable<SchemaObject[key]>;
 };
 
 export type objectKey = keyof Schema;
