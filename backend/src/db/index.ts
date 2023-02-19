@@ -1,4 +1,4 @@
-import { SchemaObject } from "./schema";
+import { SchemaObject } from "./schema.js";
 import { Schema, objectKey, dbIndex, Storage, StorageBuilder, Database, DatabaseBuilder } from "./types";
 
 const databeseBuilder = (storage:Storage):Database => {
