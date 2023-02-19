@@ -20,10 +20,9 @@ const setUser: RouteProp = {
   method: "PUT",
   path: "/user",
   handler: (ctx: Context, next: Next) => {
-    const isBodyGoodType = ctx.is("application/x-www-form-urlencoded");
-    
+    const isBodyGoodType = ctx.is("application/json");
     if(!isBodyGoodType){
-        return ctx.throw(400, "Bad request");
+      return ctx.throw(400, "Bad request");
     }
     const userRequiredKeys = ["id", "first_name", "last_name", "email"];
     const user = ctx.request.body as Object;
