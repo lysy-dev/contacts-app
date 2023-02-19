@@ -1,12 +1,13 @@
 import { Contact, ContactsList } from "./types";
 
-;
+const contactsUrl = "http://localhost:3005/user?id=1";
 
 export const getContacts = async () => {
-  return [] as ContactsList;
-  // const contactResponse = await fetch(contactsUrl);
-  // const contactJson = await contactResponse.json();
-  // return contactJson as ContactsList;
+  // return [] as ContactsList;
+  const contactResponse = await fetch(contactsUrl);
+  const contactJson = await contactResponse.json();
+  console.log(contactJson);
+  return [contactJson] as ContactsList;
 };
 
 export const filterContacts=(filterInput: string,contactCards:ContactsList) =>{
