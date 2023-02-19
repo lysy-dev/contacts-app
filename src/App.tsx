@@ -1,6 +1,8 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import { ContactsPage } from "./ContactsPage/ContactsPage";
 import {DB} from "./db";
+import CardHeader from '@mui/material/CardHeader';
+
 function App() {
   const db = DB.getInstance();
   console.log(db.Contact.get(1))
@@ -12,6 +14,7 @@ function App() {
   return (
     <div className="App">
       <CssBaseline enableColorScheme />
+      <CardHeader title="Contacts" style={{textAlign:"center",backgroundColor:"#B6E0E0"}}/>
       <ContactsPage />
     </div>
   );
