@@ -21,13 +21,13 @@ const setUser: RouteProp = {
   path: "/user",
   handler: (ctx: Context, next: Next) => {
     const isBodyGoodType = ctx.is("application/x-www-form-urlencoded");
-    console.log(ctx.request.type)
+    
     if(!isBodyGoodType){
         return ctx.throw(400, "Bad request");
     }
     const userRequiredKeys = ["id", "first_name", "last_name", "email"];
     const user = ctx.request.body as Object;
-    console.log(user)
+    
     const userHasAllKeys = userRequiredKeys.every((key) => user.hasOwnProperty(key));
     if(!userHasAllKeys){
         return ctx.throw(400, "Bad user object");
