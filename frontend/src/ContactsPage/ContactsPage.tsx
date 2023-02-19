@@ -1,20 +1,30 @@
-
 import HourglassTopOutlinedIcon from "@mui/icons-material/HourglassTopOutlined";
 import { SearchBar } from "./components/SearchBar/SearchBar";
-import { useFetcher, useSearchBarState } from "./hooks";
-import { memo } from "react";
+import { useAddContact, useFetcher, useSearchBarState } from "./hooks";
+import { memo, useState } from "react";
 import { ContactsListComponent } from "./components/ContactsList/ContactsList";
-
+import { ContactsList } from "./types";
 
 const _ContactsPage = memo(() => {
-  
-  const { loading, contacts  } = useFetcher();
-  const { searchInput,setSearchInput,filteredContactList  } = useSearchBarState(contacts)
-  if (loading) return <div><HourglassTopOutlinedIcon/></div>;
+  const [contacts, setContacts] = useState<ContactsList | null>(null);
+
+  const { loading } = useFetcher(setContacts);
+  const { searchInput, setSearchInput, filteredContactList } =
+    useSearchBarState(contacts);
+  const { processing, addContact } = useAddContact(setContacts, contacts);
+  if (loading || processing)
+    return (
+      <div>
+        <HourglassTopOutlinedIcon />
+      </div>
+    );
   return (
     <div>
-      <SearchBar searchInput={searchInput} setSearchInput={setSearchInput}/>
-      <ContactsListComponent filteredContactList={filteredContactList} />
+      <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
+      <ContactsListComponent
+        filteredContactList={filteredContactList}
+        addContact={addContact}
+      />
     </div>
   );
 });

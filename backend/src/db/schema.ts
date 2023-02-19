@@ -16,7 +16,7 @@ export interface Product extends DBObjectType {
 }
 
 
-export type AvailableMethods = "get" | "set";
+export type AvailableMethods = "get" | "set" | 'getMany';
 
 export class SchemaObject {
   Contact: Contact | null  = null;
