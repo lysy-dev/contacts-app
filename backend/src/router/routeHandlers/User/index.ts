@@ -6,7 +6,6 @@ const getUser: RouteProp = {
   path: "/user",
   handler: (ctx: Context, next: Next) => {
     const id = ctx.request.query["id"];
-    console.log(id);
     const user =  ctx.db.Contact.get(id);
     if(!user) {
         return ctx.throw(404, `User with id ${id} not found`);
