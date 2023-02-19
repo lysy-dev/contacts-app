@@ -1,21 +1,60 @@
-# Getting Started with Create React App
+Monorepo with Frontend and Backend
+This is a simple monorepo project for practicing coding skills. The project includes a frontend application built with React and a backend application built with Koa.js. The backend includes an in-memory database for storing and retrieving contact information.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Running the Frontend
+To run the backend, navigate to the frontend directory and run the following command:
 
-## BEFORE START
-Create .env file in which you will set up a variable:
-REACT_APP_CONTACTS_URL
+`yarn start`
+This will start the frontend React app.
 
-paste contacts url into it
+Running the Backend
+To run the backend, navigate to the backend directory and run the following command:
 
-## Available Scripts
+`yarn start`
+This will start the backend server and listen for incoming requests.
 
-In the project directory, you can run:
+In-Memory Database
+The backend application includes an in-memory database for storing and retrieving contact information. The database is implemented using a simple JavaScript object.
 
-### `yarn start`
+Adding Contacts
+To add a new contact to the database, send a PUT request to the /user endpoint with the following JSON payload:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+{
+  "first_name": "John" 
+  "last_name": "Doe",
+  "email": "john.doe@example.com",
+  "phone": "555-555-5555"
+}
+```
+The backend will add the new contact to the database and return the following JSON response:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+{
+  "id": "1",
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "phone": "555-555-5555"
+}
+```
+Retrieving Contacts
+To retrieve all the contacts in the database, send a GET request to the /users endpoint. The backend will return the following JSON response:
+
+```
+[
+  {
+    "id": "1",
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "phone": "555-555-5555"
+  },
+  {
+    "id": "2",
+    "name": "Jane Doe",
+    "email": "jane.doe@example.com",
+    "phone": "555-555-5555"
+  }
+]
+```
+License
+This project is licensed under the MIT License.
