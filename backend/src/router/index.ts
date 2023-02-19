@@ -1,7 +1,7 @@
 import { Context, Next } from "koa";
 import { routeHandlersObject } from "./routeHandlers/index.js";
 
-const availableMethods = ["GET"];
+const availableMethods = ["GET", "PUT"];
 
 export const enableMethods = (ctx: Context, next: Next) => {
   if (!availableMethods.includes(ctx.request.method)) {
