@@ -1,7 +1,7 @@
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import AddIcon from "@mui/icons-material/Add";
-import { AddContact, Contact } from "../../../types";
+import { AddContact } from "../../../types";
 
 const _AddContactCard = ({ addContact }: { addContact: AddContact }) => {
   const isChecked = false;

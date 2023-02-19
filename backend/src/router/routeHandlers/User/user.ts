@@ -7,7 +7,6 @@ const getUser: RouteProp = {
   handler: (ctx: Context, next: Next) => {
     const id = ctx.request.query["id"];
     const user =  ctx.db.Contact.get(id);
-    console.log(user);
     if(!user) {
         return ctx.throw(404, `User with id ${id} not found`);
     }
@@ -23,7 +22,7 @@ const getUsers: RouteProp = {
     const id = ctx.request.query["id"];
     const length = ctx.request.query["length"];
     const users =  ctx.db.Contact.getMany(length, id);
-    console.log(users);
+
     if(!users) {
         return ctx.throw(404, `User with id ${id} not found`);
     }

@@ -9,7 +9,7 @@ export const useFetcher = (setContacts: (list: ContactsList) => void) => {
       setLoading(false);
       setContacts(contacts);
     });
-  }, []);
+  }, [setContacts]);
   return { loading };
 };
 
@@ -32,13 +32,12 @@ export const useAddContact = (
       if (list === null) return;
       setProcessing(true);
       const result = await uploadContact(newContact);
-      console.log(result);
       if (!result) return;
       const newContactsList = [...list, newContact];
       setContacts(newContactsList);
       setProcessing(false);
     },
-    [list]
+    [list, setContacts]
   );
   return { processing, addContact };
 };
