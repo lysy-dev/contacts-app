@@ -1,13 +1,20 @@
 import { Divider, List } from "@mui/material";
 import { FixedSizeList } from "react-window";
 import { memo } from "react";
-import { ContactsList } from "../../types";
+import { AddContact, ContactsList } from "../../types";
 import { ContactCard } from "./ContactCard/ContactCard";
+import { AddContactCard } from "./ContactCard/InsertContactCard";
+
+type ContactsListComponentProps = {
+  filteredContactList: ContactsList;
+  addContact: AddContact;
+};
 
 export const ContactsListComponent = memo(
-  ({ filteredContactList }: { filteredContactList: ContactsList }) => {
+  ({ filteredContactList, addContact }: ContactsListComponentProps) => {
     return (
       <List>
+        <AddContactCard addContact={addContact} />
         <FixedSizeList
           itemData={filteredContactList}
           height={500}
@@ -21,9 +28,7 @@ export const ContactsListComponent = memo(
             return (
               <div style={style}>
                 <ContactCard contact={contact} />;
-                {index < filteredContactList.length && (
-                  <Divider variant="inset" component="li" />
-                )}
+                <Divider variant="inset" component="li" />
               </div>
             );
           }}

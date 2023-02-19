@@ -8,3 +8,5 @@ export type Contact = {
 }
 
 export type ContactsList = Array<Contact>;
+
+export type AddContact = (newContact: Contact) => Promise<void>;
