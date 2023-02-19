@@ -3,7 +3,6 @@ import { FixedSizeList } from "react-window";
 import { memo } from "react";
 import { ContactsList } from "../../types";
 import { ContactCard } from "../ContactCard/ContactCard";
-import AutoSizer from "react-virtualized-auto-sizer";
 
 export const ContactsListComponent = memo(
   ({ filteredContactList }: { filteredContactList: ContactsList }) => {

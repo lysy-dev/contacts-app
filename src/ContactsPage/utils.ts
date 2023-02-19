@@ -1,4 +1,3 @@
-import { ContactState } from "./components/ContactCard/state";
 import { Contact, ContactsList } from "./types";
 
 const contactsUrl = process.env.REACT_APP_CONTACTS_URL;
@@ -28,6 +27,6 @@ export const  fetchContacts= async ():Promise<{contacts:ContactsList}> => {
     .sort((contactA, contactB) => {
       return contactA.last_name.localeCompare(contactB.last_name);
     })
-    .map((contact) => new ContactState(contact));
+    
   return {contacts}
 }
