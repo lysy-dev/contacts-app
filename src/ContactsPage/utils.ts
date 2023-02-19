@@ -1,13 +1,12 @@
 import { Contact, ContactsList } from "./types";
 
-const contactsUrl = process.env.REACT_APP_CONTACTS_URL;
+;
 
 export const getContacts = async () => {
-  console.log("sending request to fetch contacts")
-  if (!contactsUrl) return [];
-  const contactResponse = await fetch(contactsUrl);
-  const contactJson = await contactResponse.json();
-  return contactJson as ContactsList;
+  return [] as ContactsList;
+  // const contactResponse = await fetch(contactsUrl);
+  // const contactJson = await contactResponse.json();
+  // return contactJson as ContactsList;
 };
 
 export const filterContacts=(filterInput: string,contactCards:ContactsList) =>{
@@ -18,13 +17,13 @@ export const filterContacts=(filterInput: string,contactCards:ContactsList) =>{
       if(contact.last_name.toLowerCase().includes(lowerCaseInput) ||
       contact.first_name.toLowerCase().includes(lowerCaseInput))filteredCards.push(contact)
   }
-  console.log(filteredCards)
+  
   return filteredCards
 }
 
 export const  fetchContacts= async ():Promise<{contacts:ContactsList}> => {
-  const contacts = await getContacts();
-  const contactsStates = contacts
+  const contactsNotInOrder = await getContacts();
+  const contacts = contactsNotInOrder
     .sort((contactA, contactB) => {
       return contactA.last_name.localeCompare(contactB.last_name);
     })

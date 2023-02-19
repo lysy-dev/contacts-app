@@ -16,10 +16,9 @@ export const useFetcher = () => {
 
 export const useSearchBarState = (fullContactsList: ContactsList | null) => {
   const [searchInput, setSearchInput] = useState<string>("");
-  const [searchInProgress, setSearchInProgress] = useState<boolean>(false);
   const filteredContactList = useMemo(() => {
     if (fullContactsList === null) return [];
     return filterContacts(searchInput, fullContactsList);
-  }, [searchInput]);
-  return { searchInProgress, filteredContactList, searchInput, setSearchInput };
+  }, [searchInput, fullContactsList]);
+  return { filteredContactList, searchInput, setSearchInput };
 };
