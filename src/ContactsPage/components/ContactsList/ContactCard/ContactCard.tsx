@@ -1,32 +1,31 @@
-import { observer } from "mobx-react-lite";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemButton from "@mui/material/ListItemButton";
 import Avatar from "@mui/material/Avatar";
-import { ContactState } from "./state";
-import Checkbox from '@mui/material/Checkbox';
+import { Contact } from "../../../types";
 
 
-const _ContactCard = ({ state }: { state: ContactState }) => {
-  const isChecked = state.isChecked;
-  const style = {backgroundColor: "#937342"};
+const _ContactCard = ({ contact }: { contact: Contact }) => {
+  const isChecked = false
+  const style = isChecked ? { backgroundColor: "red" } : {backgroundColor: "grey"};
   return (
     <ListItem style={style}>
       <ListItemButton
         role={undefined}
         onClick={(_) => {
-            state.setChecked(!isChecked)}}
+          //  state.setChecked(!isChecked)}
+          }}
         dense
       >
         <ListItemAvatar>
-          <Avatar src={state.avatar} />
+          <Avatar src={contact.avatar} />
         </ListItemAvatar>
-        <ListItemText primary={`${state.first_name} ${state.last_name}`} />
-        <Checkbox checked={isChecked}/>
+        <ListItemText primary={contact.first_name} />
+        <ListItemText primary={contact.last_name} />
       </ListItemButton>
     </ListItem>
   );
 };
 
-export const ContactCard = observer(_ContactCard);
+export const ContactCard = _ContactCard;

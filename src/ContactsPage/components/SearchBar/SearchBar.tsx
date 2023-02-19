@@ -2,32 +2,30 @@ import { observer } from "mobx-react-lite";
 import { ChangeEvent } from "react";
 import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import HourglassTopOutlinedIcon from "@mui/icons-material/HourglassTopOutlined";
-import { SearchBarState } from "./state";
+import { SearchBarProps } from "./types";
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   "& .MuiInputBase-input": {
     backgroundColor: theme.palette.background.paper,
     width: "90vw",
+    marginLeft: "10px",
     fontSize: 16,
     padding: "10px 26px 10px 12px",
   },
 }));
 
-const _SearchBar = ({ state }: { state: SearchBarState }) => {
-  const value = state.input;
+const _SearchBar = ({ searchInput, setSearchInput }: SearchBarProps) => {
   const setValue = (v: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    if (v.target.value === null) return state.setInput("");
-    state.setInput(v.target.value);
+    if (v.target.value === null) return setSearchInput("");
+    setSearchInput(v.target.value);
   };
 
   return (
     <BootstrapInput
-      value={value}
+      value={searchInput}
       onChange={setValue}
       placeholder="Search for contact"
     />
   );
-  //<OutlinedInput value={value} onChange={setValue} placeholder="Search for contact" fullWidth/>;
 };
 export const SearchBar = observer(_SearchBar);
