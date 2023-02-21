@@ -1,4 +1,4 @@
-import { Contact, ContactsList } from "./types";
+import { Contact, ContactsList, NewContact } from "./types";
 
 const contactsUrl = "http://localhost:3005/users";
 const updateContactsUrl = "http://localhost:3005/user";
@@ -36,7 +36,7 @@ export const fetchContacts = async (): Promise<{ contacts: ContactsList }> => {
   return { contacts };
 };
 
-export const uploadContact = async (newContact: Contact) => {
+export const uploadContact = async (newContact: NewContact) => {
   return await fetch(updateContactsUrl, {
     method: "PUT",
     body: JSON.stringify(newContact),

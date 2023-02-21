@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
-import { AddContact, AddContactProps, Contact, ContactReducerProps, ContactsList, SetContactsProps } from "./types";
+import { AddContact, AddContactProps, Contact, ContactReducerProps, ContactsList, NewContact, SetContactsProps } from "./types";
 import { fetchContacts, filterContacts, uploadContact } from "./utils";
 
 
@@ -46,7 +46,7 @@ export const useAddContact = (
 ) => {
   const [processing, setProcessing] = useState(false);
   const addContact: AddContact = useCallback(
-    async (newContact: Contact) => {
+    async (newContact: NewContact) => {
       setProcessing(true);
       const result = await uploadContact(newContact);
       if (!result) return;

@@ -9,16 +9,20 @@ export type Contact = {
 
 export type ContactsList = Array<Contact>;
 
-export type AddContact = (newContact: Contact) => Promise<void>;
+export type NewContact = Omit<Contact, "id">
+
+export type AddContact = (newContact: NewContact) => Promise<void>;
 
 export type SetContactsProps = {
   type: "set";
   payload: ContactsList;
 };
+
 export type AddContactProps = {
   type: "add";
-  payload: Contact;
+  payload: NewContact;
 };
+
 export type RemoveContactProps = {
   type: "remove";
   payload: number;
