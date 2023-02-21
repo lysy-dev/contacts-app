@@ -1,13 +1,32 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { AddContact, Contact, ContactsList } from "./types";
+import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
+import { AddContact, AddContactProps, Contact, ContactReducerProps, ContactsList, SetContactsProps } from "./types";
 import { fetchContacts, filterContacts, uploadContact } from "./utils";
 
-export const useFetcher = (setContacts: (list: ContactsList) => void) => {
+
+type ContactReducerAction = (state: ContactsList, action: ContactReducerProps) => ContactsList;
+const contactReducer = (state: ContactsList, action: ContactReducerProps) => {
+  const reducerActions = {
+    set: () => action.payload as ContactsList,
+    add: () => [...state, action.payload as Contact],
+    remove: () => state.filter((contact) => contact.id !== action.payload)
+  };
+
+  const reducer = reducerActions[action.type];
+  return reducer ? reducer() : state;
+};
+
+
+export const useContacts = () => {
+  const [contacts, dispatchContacts] = useReducer<ContactReducerAction>(contactReducer, []);
+  return { contacts, dispatchContacts };
+}
+
+export const useFetcher = (setContacts: (action: SetContactsProps) => void) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetchContacts().then(({ contacts }) => {
       setLoading(false);
-      setContacts(contacts);
+      setContacts({type:"set",payload:contacts});
     });
   }, [setContacts]);
   return { loading };
@@ -23,21 +42,18 @@ export const useSearchBarState = (fullContactsList: ContactsList | null) => {
 };
 
 export const useAddContact = (
-  setContacts: (list: ContactsList) => void,
-  list: ContactsList | null
+  insertContact: (action: AddContactProps) => void,
 ) => {
   const [processing, setProcessing] = useState(false);
   const addContact: AddContact = useCallback(
     async (newContact: Contact) => {
-      if (list === null) return;
       setProcessing(true);
       const result = await uploadContact(newContact);
       if (!result) return;
-      const newContactsList = [...list, newContact];
-      setContacts(newContactsList);
+      insertContact({payload: newContact, type: 'add'});
       setProcessing(false);
     },
-    [list, setContacts]
+    [insertContact]
   );
   return { processing, addContact };
 };
