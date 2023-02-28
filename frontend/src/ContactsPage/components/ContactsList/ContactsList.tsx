@@ -7,14 +7,14 @@ import { AddContactCard } from "./ContactCard/InsertContactCard";
 
 type ContactsListComponentProps = {
   filteredContactList: ContactsList;
-  addContact: AddContact;
+  
 };
 
 export const ContactsListComponent = memo(
-  ({ filteredContactList, addContact }: ContactsListComponentProps) => {
+  ({ filteredContactList }: ContactsListComponentProps) => {
     return (
       <List>
-        <AddContactCard addContact={addContact} />
+        <AddContactCard />
         <FixedSizeList
           itemData={filteredContactList}
           height={500}

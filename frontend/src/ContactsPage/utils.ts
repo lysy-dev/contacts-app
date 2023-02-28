@@ -1,4 +1,4 @@
-import { Contact, ContactsList } from "./types";
+import { ContactsList, ContactToRemove, NewContact } from "./types";
 
 const contactsUrl = "http://localhost:3005/users";
 const updateContactsUrl = "http://localhost:3005/user";
@@ -7,7 +7,7 @@ export const getContacts = async () => {
   // return [] as ContactsList;
   const contactResponse = await fetch(contactsUrl + "?length=10");
   const contactJson = await contactResponse.json();
-  
+
   return contactJson as ContactsList;
 };
 
@@ -36,10 +36,20 @@ export const fetchContacts = async (): Promise<{ contacts: ContactsList }> => {
   return { contacts };
 };
 
-export const uploadContact = async (newContact: Contact) => {
+export const uploadContact = async (newContact: NewContact) => {
   return await fetch(updateContactsUrl, {
     method: "PUT",
     body: JSON.stringify(newContact),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+export const deleteContact = async (contactToRemove: ContactToRemove) => {
+  return await fetch(updateContactsUrl, {
+    method: "DELETE",
+    body: JSON.stringify(contactToRemove),
     headers: {
       "Content-Type": "application/json",
     },

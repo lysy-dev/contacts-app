@@ -20,6 +20,7 @@ const databeseBuilder = (storage: Storage): Database => {
         get: val.get,
         set: val.set,
         getMany: val.getMany,
+        delete: val.delete,
       };
       return acc as DatabaseBuilder;
     },
@@ -52,6 +53,12 @@ export class DB {
             this.storage[key].items[id] = { ...val, id } as Schema[objectKey];
           },
           getLastId: () => Object.keys(this.storage[key].items).length,
+          delete: (id: dbIndex) => {
+            const record = this.storage[key].items[id];
+            if(!record) throw new Error("Record not found");
+            delete this.storage[key].items[id];
+            return record;
+          }
         };
         return acc;
       },
