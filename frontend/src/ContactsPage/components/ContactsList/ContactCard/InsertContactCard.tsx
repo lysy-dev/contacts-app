@@ -15,8 +15,8 @@ const _AddContactCard = () => {
   const [open, setOpen] = useState(false);
   const openForm = () => setOpen(true);
   const closeForm = () => setOpen(false);
-  const dispatchContacts = useContext(ContactsContext)
-  const { processing, addContact } = useAddContact(dispatchContacts);
+  
+  const { processing, addContact } = useAddContact();
   const sendContact = async (contact: NewContact) => {
     await addContact(contact);
     closeForm();

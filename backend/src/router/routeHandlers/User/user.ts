@@ -52,4 +52,27 @@ const setUser: RouteProp = {
   },
 };
 
+const removeUser: RouteProp = {
+  method: "DELETE",
+  path: "/user",
+  handler: (ctx: Context, next: Next) => {
+    const isBodyGoodType = ctx.is("application/json");
+    if(!isBodyGoodType){
+      return ctx.throw(400, "Bad request");
+    }
+    
+    const id = ctx.request.body as Object;
+    
+    if(!id){
+        return ctx.throw(400, "Bad user id");
+    }
+    try{ctx.db.Contact.delete(id);}
+    catch(e){
+        return ctx.throw(404, "User not found");
+    }
+    ctx.body = true;
+    return next();
+  },
+};
+
 export const userRoutes = [getUser,setUser,getUsers];

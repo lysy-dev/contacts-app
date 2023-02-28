@@ -14,10 +14,12 @@ import {
   Contact,
   ContactReducerProps,
   ContactsList,
+  ContactToRemove,
   NewContact,
+  RemoveContact,
   SetContactsProps,
 } from "./types";
-import { fetchContacts, filterContacts, uploadContact } from "./utils";
+import { deleteContact, fetchContacts, filterContacts, uploadContact } from "./utils";
 
 type ContactReducerAction = (
   state: ContactsList,
@@ -34,9 +36,8 @@ const contactReducer = (state: ContactsList, action: ContactReducerProps) => {
   return reducer ? reducer() : state;
 };
 
-export const ContactsContext = createContext<Dispatch<ContactReducerProps> | null>(
-  null
-);
+export const ContactsContext =
+  createContext<Dispatch<ContactReducerProps> | null>(null);
 
 export const useContacts = () => {
   const [contacts, dispatchContacts] = useReducer<ContactReducerAction>(
@@ -66,19 +67,35 @@ export const useSearchBarState = (fullContactsList: ContactsList | null) => {
   return { filteredContactList, searchInput, setSearchInput };
 };
 
-export const useAddContact = (
-  insertContact:( (action: AddContactProps) => void) | null
-) => {
+export const useAddContact = () => {
   const [processing, setProcessing] = useState(false);
+  const dispatchContacts = useContext(ContactsContext);
   const addContact: AddContact = useCallback(
     async (newContact: NewContact) => {
       setProcessing(true);
       const result = await uploadContact(newContact);
       if (!result) return;
-      insertContact?.({ payload: newContact, type: "add" });
+      dispatchContacts?.({ payload: newContact, type: "add" });
       setProcessing(false);
     },
-    [insertContact]
+    [dispatchContacts]
   );
   return { processing, addContact };
+};
+
+
+export const useRemoveContack = () => {
+  const [processing, setProcessing] = useState(false);
+  const dispatchContacts = useContext(ContactsContext);
+  const removeContact: RemoveContact = useCallback(
+    async ({id}: ContactToRemove) => {
+      setProcessing(true);
+      const result = await deleteContact(id);
+      if (!result) return;
+      dispatchContacts?.({ payload: id, type: "remove" });
+      setProcessing(false);
+    },
+    [dispatchContacts]
+  );
+  return { processing, removeContact };
 };

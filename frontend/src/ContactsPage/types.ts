@@ -13,7 +13,7 @@ export type NewContact = Omit<Contact, "id">
 export type ContactToRemove = Pick<Contact, "id">
 
 export type AddContact = (newContact: NewContact) => Promise<void>;
-export type RemoveContact = (newContact: ContactToRemove) => Promise<void>;
+export type RemoveContact = (id: ContactToRemove) => Promise<void>;
 
 export type SetContactsProps = {
   type: "set";

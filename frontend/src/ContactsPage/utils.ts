@@ -7,7 +7,7 @@ export const getContacts = async () => {
   // return [] as ContactsList;
   const contactResponse = await fetch(contactsUrl + "?length=10");
   const contactJson = await contactResponse.json();
-  
+
   return contactJson as ContactsList;
 };
 
@@ -40,6 +40,16 @@ export const uploadContact = async (newContact: NewContact) => {
   return await fetch(updateContactsUrl, {
     method: "PUT",
     body: JSON.stringify(newContact),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+export const deleteContact = async (id: number) => {
+  return await fetch(updateContactsUrl, {
+    method: "DELETE",
+    body: id.toString(),
     headers: {
       "Content-Type": "application/json",
     },
