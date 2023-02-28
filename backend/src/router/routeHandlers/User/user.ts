@@ -39,7 +39,7 @@ const setUser: RouteProp = {
     if(!isBodyGoodType){
       return ctx.throw(400, "Bad request");
     }
-    const userRequiredKeys = ["id", "first_name", "last_name", "email"];
+    const userRequiredKeys = ["first_name", "last_name", "email"];
     const user = ctx.request.body as Object;
     
     const userHasAllKeys = userRequiredKeys.every((key) => user.hasOwnProperty(key));

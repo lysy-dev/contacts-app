@@ -1,4 +1,4 @@
-import { Contact, ContactsList, NewContact } from "./types";
+import { ContactsList, NewContact } from "./types";
 
 const contactsUrl = "http://localhost:3005/users";
 const updateContactsUrl = "http://localhost:3005/user";

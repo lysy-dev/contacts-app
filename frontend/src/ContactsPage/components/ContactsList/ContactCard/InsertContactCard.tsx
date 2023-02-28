@@ -3,45 +3,76 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import AddIcon from "@mui/icons-material/Add";
 import { AddContact, NewContact } from "../../../types";
-import { FormControl, FormHelperText, Input, InputLabel } from "@mui/material";
-// addContact({
-//   email: "test@test.pl",
-//   first_name: "test",
-//   last_name: "test",
-//   avatar: "test",
-//   gender: "unknown",
-// });
+import {
+  FormControl,
+  Input,
+  TextField,
+} from "@mui/material";
+import { useState } from "react";
 
 const _AddContactCard = ({ addContact }: { addContact: AddContact }) => {
+  const [open, setOpen] = useState(false);
+  const openForm = () => setOpen(true);
+  const closeForm = () => setOpen(false);
+  const sendContact = async (contact: NewContact) => {
+    await addContact(contact);
+    closeForm();
+  };
   return (
     <ListItem>
-      <ListItemButton
-       
-        dense
-      >
-        <AddIcon />
-      </ListItemButton>
+      {open ? (
+        <FormCard sendContact={sendContact}/>
+      ) : (
+        <ListItemButton dense onClick={openForm}>
+          <AddIcon />
+        </ListItemButton>
+      )}
     </ListItem>
   );
 };
 
 export const AddContactCard = _AddContactCard;
 
-const FormCard = () => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<NewContact>();
+type FormCardProps = {
+  sendContact: (contact: NewContact) => void;
+};
+const FormCard = ({sendContact}:FormCardProps) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<NewContact>();
+  const onSubmit = (data: NewContact) => sendContact(data);
+  if(errors){
+    console.log(errors)
+  }
+  
   return (
+    <form onSubmit={handleSubmit(onSubmit)}>
     <FormControl>
-      <InputLabel htmlFor="email">Email address</InputLabel>
-      <Input id="my-input" aria-describedby="my-helper-text" {...register("email",{required:true})}/>
+      <TextField
+        id="my-input"
+        label="Email address"
+        aria-describedby="my-helper-text"
+        {...register("email", { required: true })}
+        />
 
-      <InputLabel htmlFor="first_name">First name</InputLabel>
-      <Input id="first_name" aria-describedby="my-helper-text" {...register("first_name",{required:true})}/>
+      <TextField
+        id="first_name"
+        label="First name"
+        aria-describedby="my-helper-text"
+        {...register("first_name", { required: true })}
+        />
 
-      <InputLabel htmlFor="last_name">Last name</InputLabel>
-      <Input id="last_name" aria-describedby="my-helper-text" {...register("last_name",{required:true})}/>
-      <FormHelperText id="my-helper-text">
-        We'll never share your email.
-      </FormHelperText>
+      <TextField
+        id="last_name"
+        label="Last name"
+        aria-describedby="my-helper-text"
+        {...register("last_name", { required: true })}
+        />
+      <Input type='submit' />
+      
     </FormControl>
+        </form>
   );
 };
