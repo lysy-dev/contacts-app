@@ -6,7 +6,7 @@ import { handleRoutes } from "./router/router.js";
 
 const addMiddleware = (app: koa) => {
   app.use(bodyparser());
-  app.use(cors({ origin: "*", allowMethods: ["GET", "PUT"]}));
+  app.use(cors({ origin: "*", allowMethods: ["GET", "PUT", "DELETE"]}));
 };
 const addConfig = (app: koa) => {
   app.use(handleRoutes);

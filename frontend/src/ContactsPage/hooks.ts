@@ -84,15 +84,16 @@ export const useAddContact = () => {
 };
 
 
-export const useRemoveContack = () => {
+export const useRemoveContact = () => {
   const [processing, setProcessing] = useState(false);
   const dispatchContacts = useContext(ContactsContext);
   const removeContact: RemoveContact = useCallback(
-    async ({id}: ContactToRemove) => {
+    async (contactToRemove: ContactToRemove) => {
       setProcessing(true);
-      const result = await deleteContact(id);
+      console.log(contactToRemove);
+      const result = await deleteContact(contactToRemove);
       if (!result) return;
-      dispatchContacts?.({ payload: id, type: "remove" });
+      dispatchContacts?.({ payload: contactToRemove.id, type: "remove" });
       setProcessing(false);
     },
     [dispatchContacts]

@@ -1,4 +1,4 @@
-import { ContactsList, NewContact } from "./types";
+import { ContactsList, ContactToRemove, NewContact } from "./types";
 
 const contactsUrl = "http://localhost:3005/users";
 const updateContactsUrl = "http://localhost:3005/user";
@@ -46,10 +46,10 @@ export const uploadContact = async (newContact: NewContact) => {
   });
 };
 
-export const deleteContact = async (id: number) => {
+export const deleteContact = async (contactToRemove: ContactToRemove) => {
   return await fetch(updateContactsUrl, {
     method: "DELETE",
-    body: id.toString(),
+    body: JSON.stringify(contactToRemove),
     headers: {
       "Content-Type": "application/json",
     },
