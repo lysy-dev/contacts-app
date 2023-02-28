@@ -55,7 +55,6 @@ export class DB {
           getLastId: () => Object.keys(this.storage[key].items).length,
           delete: (id: dbIndex) => {
             const record = this.storage[key].items[id];
-            console.log("RECORD: ",record)
             if(!record) throw new Error("Record not found");
             delete this.storage[key].items[id];
             return record;

@@ -55,6 +55,7 @@ const FormCard = ({sendContact}:FormCardProps) => {
     <FormControl>
       <TextField
         id="my-input"
+        type={"email"}
         label="Email address"
         aria-describedby="my-helper-text"
         {...register("email", { required: true })}

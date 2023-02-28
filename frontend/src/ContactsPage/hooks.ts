@@ -90,7 +90,6 @@ export const useRemoveContact = () => {
   const removeContact: RemoveContact = useCallback(
     async (contactToRemove: ContactToRemove) => {
       setProcessing(true);
-      console.log(contactToRemove);
       const result = await deleteContact(contactToRemove);
       if (!result) return;
       dispatchContacts?.({ payload: contactToRemove.id, type: "remove" });
