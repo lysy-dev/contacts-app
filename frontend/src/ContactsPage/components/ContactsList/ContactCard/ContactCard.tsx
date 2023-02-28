@@ -23,6 +23,7 @@ const _ContactCard = ({ contact }: { contact: Contact }) => {
         </ListItemAvatar>
         <ListItemText primary={contact.first_name} />
         <ListItemText primary={contact.last_name} />
+        
       </ListItemButton>
     </ListItem>
   );

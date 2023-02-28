@@ -1,32 +1,57 @@
-import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
-import { AddContact, AddContactProps, Contact, ContactReducerProps, ContactsList, NewContact, SetContactsProps } from "./types";
+import {
+  createContext,
+  Dispatch,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from "react";
+import {
+  AddContact,
+  AddContactProps,
+  Contact,
+  ContactReducerProps,
+  ContactsList,
+  NewContact,
+  SetContactsProps,
+} from "./types";
 import { fetchContacts, filterContacts, uploadContact } from "./utils";
 
-
-type ContactReducerAction = (state: ContactsList, action: ContactReducerProps) => ContactsList;
+type ContactReducerAction = (
+  state: ContactsList,
+  action: ContactReducerProps
+) => ContactsList;
 const contactReducer = (state: ContactsList, action: ContactReducerProps) => {
   const reducerActions = {
     set: () => action.payload as ContactsList,
     add: () => [...state, action.payload as Contact],
-    remove: () => state.filter((contact) => contact.id !== action.payload)
+    remove: () => state.filter((contact) => contact.id !== action.payload),
   };
 
   const reducer = reducerActions[action.type];
   return reducer ? reducer() : state;
 };
 
+export const ContactsContext = createContext<Dispatch<ContactReducerProps> | null>(
+  null
+);
 
 export const useContacts = () => {
-  const [contacts, dispatchContacts] = useReducer<ContactReducerAction>(contactReducer, []);
+  const [contacts, dispatchContacts] = useReducer<ContactReducerAction>(
+    contactReducer,
+    []
+  );
   return { contacts, dispatchContacts };
-}
+};
 
 export const useFetcher = (setContacts: (action: SetContactsProps) => void) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetchContacts().then(({ contacts }) => {
       setLoading(false);
-      setContacts({type:"set",payload:contacts});
+      setContacts({ type: "set", payload: contacts });
     });
   }, [setContacts]);
   return { loading };
@@ -42,7 +67,7 @@ export const useSearchBarState = (fullContactsList: ContactsList | null) => {
 };
 
 export const useAddContact = (
-  insertContact: (action: AddContactProps) => void,
+  insertContact:( (action: AddContactProps) => void) | null
 ) => {
   const [processing, setProcessing] = useState(false);
   const addContact: AddContact = useCallback(
@@ -50,7 +75,7 @@ export const useAddContact = (
       setProcessing(true);
       const result = await uploadContact(newContact);
       if (!result) return;
-      insertContact({payload: newContact, type: 'add'});
+      insertContact?.({ payload: newContact, type: "add" });
       setProcessing(false);
     },
     [insertContact]

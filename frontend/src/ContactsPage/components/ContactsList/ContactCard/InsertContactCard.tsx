@@ -8,12 +8,15 @@ import {
   Input,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ContactsContext, useAddContact } from "../../../hooks";
 
-const _AddContactCard = ({ addContact }: { addContact: AddContact }) => {
+const _AddContactCard = () => {
   const [open, setOpen] = useState(false);
   const openForm = () => setOpen(true);
   const closeForm = () => setOpen(false);
+  const dispatchContacts = useContext(ContactsContext)
+  const { processing, addContact } = useAddContact(dispatchContacts);
   const sendContact = async (contact: NewContact) => {
     await addContact(contact);
     closeForm();
